@@ -1,0 +1,29 @@
+---
+title: "monte carlo sim"
+author: "Christopher Caston"
+date: '2022-04-17'
+output: html_document
+---
+
+```{r}
+library(ggplot2)
+library(ggforce)
+```
+
+
+```{r}
+rm(list = ls())
+
+n <- 1000
+x <- runif(n, -1, 1)
+y <- runif(n, -1, 1)
+
+ggplot() +                            
+  geom_point(aes(x, y), alpha = .4) +
+  geom_circle(aes(x0 = 0, y0 = 0, r = 1), color = "red", lwd = 1)
+
+circle <- ifelse(x^2 + y^2 <= 1, 1, 0)
+prob <- sum(circle) / n
+pi <- 4 * prob
+```
+

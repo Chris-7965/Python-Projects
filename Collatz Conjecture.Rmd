@@ -1,0 +1,67 @@
+---
+title: "Collatz conjecture"
+author: "Christopher Caston"
+date: '2022-04-18'
+output: html_document
+---
+
+
+```{r}
+rm(list = ls())
+
+x <- 6171
+
+while (TRUE) {
+  
+  if((x[length(x)] %% 2) == 0) x <- c(x, (x[length(x)] / 2))
+  else x <- c(x, (x[length(x)] * 3 + 1))
+  
+  if(x[length(x)] == 2) break
+}
+x
+```
+
+
+```{r}
+rm(list = ls())
+nsims <- 10000
+
+results <- rep(0, nsims)
+
+for(i in 1:nsims){
+  
+  x <- i
+  while (TRUE) {
+  
+    if((x[length(x)] %% 2) == 0) x <- c(x, (x[length(x)] / 2))
+    else x <- c(x, (x[length(x)] * 3 + 1))
+  
+    if(x[length(x)] == 2) break
+    if(x[length(x)] == 1) break
+  }
+
+  results[i] <- length(x) + 1
+}
+
+plot(results, pch = 19, cex = .5)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

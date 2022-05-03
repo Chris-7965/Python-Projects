@@ -1,0 +1,71 @@
+---
+title: "monte hall sim"
+author: "Christopher Caston"
+date: '2022-04-17'
+output: html_document
+---
+
+
+```{r}
+rm(list = ls())
+
+# set.seed(1)
+nsims <- 1000
+
+win.switch <- win.stay <- rep(0, nsims)
+
+for(i in 1:nsims){
+  
+  car.door <- sample(1:3, 1)
+  our.door <- sample(1:3, 1)
+  
+  if(car.door == our.door) win.stay[i] <- 1
+
+  monte.door <- (1:3)[-c(car.door, our.door)]
+  if(length(monte.door) > 1){
+    monte.door <- sample(monte.door, 1)
+  }
+  
+  our.door <- (1:3)[-c(our.door, monte.door)]
+  if(our.door == car.door) win.switch[i] <- 1
+
+}
+
+mean(win.stay)
+mean(win.switch)
+```
+
+
+
+```{r}
+rm(list = ls())
+
+## generalize for N number of doors ##
+
+# set.seed(123)
+nsims <- 1000
+doors = 4     # ----> can change doors to any positive integer
+
+win.switch <- win.stay <- rep(0, nsims)
+
+for(i in 1:nsims){
+  
+  car.door <- sample(1:doors, 1)
+  our.door <- sample(1:doors, 1)
+  
+  if(car.door == our.door) win.stay[i] <- 1
+  
+  monte.doors <- sample((1:doors)[-c(car.door, our.door)])
+  if(length(monte.doors) > doors - 2){
+    monte.doors <- sample(monte.doors, doors - 2)
+  }
+  
+  our.door <- (1:doors)[-c(our.door, monte.doors)]
+  if(car.door == our.door) win.switch[i] <- 1
+  
+}
+
+mean(win.stay)
+mean(win.switch)
+```
+

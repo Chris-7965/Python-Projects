@@ -1,0 +1,61 @@
+---
+title: "random walks"
+output: html_document
+date: '2022-04-06'
+---
+
+
+```{r}
+rm(list = ls())
+
+x <- 0
+
+while(TRUE){
+  
+  x <- c(x, x[length(x)] + sample(c(-1,1), 1, prob = c(.5,.5)))
+  if(x[length(x)] == 10) break
+  
+}
+
+if(length(x) < 100){
+  plot(x, type = "b")
+} else{
+  plot(x, type = "l")
+}
+```
+
+
+```{r}
+rm(list = ls())
+nsims <- 10000
+
+results <- rep(0, nsims)
+
+for(i in 1:nsims){
+  
+  x <- 0
+  while(TRUE){
+    
+    x <- c(x, x[length(x)] + sample(c(-1,1), 1, prob = c(.3,.7)))
+    if(x[length(x)] == 10) break
+  }
+  
+  results[i] <- length(x) - 1
+}
+
+mean(results)
+min(results)
+max(results)
+
+plot(results)
+abline( h = mean(results), col = "red", lwd = 3)
+
+ordered = sort(results)
+plot(ordered)
+```
+
+
+
+
+
+
